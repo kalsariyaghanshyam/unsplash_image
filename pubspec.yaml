@@ -1,0 +1,101 @@
+name: unsplash_img
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=3.2.5 <4.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+
+  carousel_slider: ^4.2.1
+  lottie: ^3.1.2
+  animate_do: ^3.3.4
+  cached_network_image: ^3.3.1
+  staggered_grid_view_flutter: ^0.0.4
+  morpheme_cached_network_image: any
+  pull_to_refresh: ^2.0.0
+  iconsax: ^0.0.8
+  http: any
+
+  get: 4.6.6
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^2.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+
+  assets:
+    - assets/animation/
+
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/lato/Lato-Black.ttf
+          weight: 900
+        - asset: assets/fonts/lato/Lato-BlackItalic.ttf
+          style: italic
+          weight: 900
+        - asset: assets/fonts/lato/Lato-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/lato/Lato-BoldItalic.ttf
+          style: italic
+          weight: 700
+        - asset: assets/fonts/lato/Lato-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/lato/Lato-Italic.ttf
+          style: italic
+          weight: 400
+        - asset: assets/fonts/lato/Lato-Light.ttf
+          weight: 300
+        - asset: assets/fonts/lato/Lato-LightItalic.ttf
+          style: italic
+          weight: 300
+        - asset: assets/fonts/lato/Lato-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/lato/Lato-ThinItalic.ttf
+          style: italic
+          weight: 100
+
+    - family: Proza Libre
+      fonts:
+        - asset: assets/fonts/proza_libre/ProzaLibre-Bold.ttf
+          weight: 700
+
+        - asset: assets/fonts/proza_libre/ProzaLibre-BoldItalic.ttf
+          style: italic
+          weight: 700
+
+        - asset: assets/fonts/proza_libre/ProzaLibre-ExtraBold.ttf
+          weight: 800
+
+        - asset: assets/fonts/proza_libre/ProzaLibre-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+
+        - asset: assets/fonts/proza_libre/ProzaLibre-Italic.ttf
+          weight: 500
+          style: italic
+
+        - asset: assets/fonts/proza_libre/ProzaLibre-Medium.ttf
+          weight: 500
+
+        - asset: assets/fonts/proza_libre/ProzaLibre-MediumItalic.ttf
+          weight: 500
+          style: italic
+
+        - asset: assets/fonts/proza_libre/ProzaLibre-Regular.ttf
+          weight: 400
+
+        - asset: assets/fonts/proza_libre/ProzaLibre-SemiBold.ttf
+          weight: 600
+
+        - asset: assets/fonts/proza_libre/ProzaLibre-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+
