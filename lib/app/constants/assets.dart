@@ -9,5 +9,11 @@ class AssetStrings {
 
 
 //============================= Icons ==========================================
+  static const String comment = 'assets/icons/comment.svg';
+  static const String likeIcn = 'assets/icons/like.svg';
+  static const String view = 'assets/icons/view.svg';
+  static const String setting = 'assets/icons/setting.png';
+  static const String horizontal = 'assets/icons/horizontal.svg';
+  static const String vertical = 'assets/icons/vertical.svg';
 
 }

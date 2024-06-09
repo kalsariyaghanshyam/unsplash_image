@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unsplash_img/app/constants/index.dart';
+import 'package:unsplash_img/app/modules/home/views/widget/end_drawer.dart';
 import 'package:unsplash_img/app/modules/home/views/widget/feed_image.dart';
 import '../../../reusable/index.dart';
 import '../controllers/home_controller.dart';
@@ -16,10 +17,13 @@ class HomeView extends GetView<HomeController> {
         controller.focus.unfocus();
       },
       child: Scaffold(
+        key: controller.scaffoldKey,
         extendBody: true,
         extendBodyBehindAppBar: true,
         backgroundColor: appColors.xffececee,
-        appBar: appBar(),
+        appBar: appBar(controller),
+        endDrawerEnableOpenDragGesture: false,
+        endDrawer: const DrawerView(),
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
@@ -29,6 +33,9 @@ class HomeView extends GetView<HomeController> {
                 expandedHeight: 100.0,
                 floating: false,
                 pinned: false,
+                actions: const [
+                  SizedBox.shrink()
+                ],
                 flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.pin,
                     stretchModes: const <StretchMode>[
@@ -96,19 +103,21 @@ class HomeView extends GetView<HomeController> {
 //==============================================================================
 // ** Main widget **
 //==============================================================================
-  AppBar appBar() {
+  AppBar appBar(HomeController controller) {
     return AppBar(
       backgroundColor: appColors.xffececee,
       actions: <Widget>[
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            appPrint("Hello");
+            controller.scaffoldKey.currentState!.openEndDrawer();
+          },
           child: Padding(
-            padding: const EdgeInsets.only(right: 30, top: 8, bottom: 8),
+            padding: const EdgeInsets.only(right: 15, top: 8, bottom: 8),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
-              child: Image.network(
-                  height: 40,
-                  "https://images.unsplash.com/photo-1715412406617-e76cd73e644d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4NHx8fGVufDB8fHx8fA%3D%3D"),
+              child:
+                  Image.asset(AssetStrings.setting, height: Get.height * 0.04),
             ),
           ),
         ),

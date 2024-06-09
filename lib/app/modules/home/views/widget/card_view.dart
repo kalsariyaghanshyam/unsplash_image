@@ -34,28 +34,21 @@ class CardView extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Container(
-            color: onTap != null ? appColors.xffFFFFFF: appColors.trans,
+            color: onTap != null ? appColors.xffFFFFFF : appColors.trans,
             width: Get.width,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                if (onTap != null)
-                  Hero(
+                Expanded(
+                  child: Hero(
                     tag: imageUrl,
                     child: networkImage(
                       imageUrl,
-                      height: 190,
+
                     ),
-                  )
-                else
-                  Hero(
-                      tag: imageUrl,
-                      child: networkImage(
-                        imageUrl,
-                        fit: BoxFit.contain,
-                        height: Get.height/2
-                      )),
+                  ),
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: Get.width * 0.03,

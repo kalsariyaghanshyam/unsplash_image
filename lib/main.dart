@@ -3,5 +3,7 @@ import 'app/modules/myApp/views/my_app_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  Future.delayed(const Duration(milliseconds: 200), () {
+    runApp(const MyApp());
+  });
 }

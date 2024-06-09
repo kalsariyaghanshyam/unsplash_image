@@ -17,6 +17,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   iconsax: ^0.0.8
   http: any
+  flutter_svg: ^2.0.10+1
 
   get: 4.6.6
   flutter: 
@@ -32,6 +33,7 @@ flutter:
 
   assets:
     - assets/animation/
+    - assets/icons/
 
   fonts:
     - family: Lato

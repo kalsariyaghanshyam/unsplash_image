@@ -1,4 +1,5 @@
 import '../../model/image_response_model.dart';
+import '../../model/index.dart';
 import '../index.dart';
 
 class Repo {
@@ -10,5 +11,5 @@ class Repo {
 abstract class Repository {
 //============================= Api =====================================
 
-  Future<ImageResponseModel> getImageData({required int page});
+  Future<ImageResponseModel> getImageData({required FilterArg filterData});
 }

@@ -12,7 +12,6 @@ extension ColorExtension on Color {
   Color get xffFFF8D3 => const Color(0xFFECE5AF);
   Color get xff70787D => const Color(0xFF70787D);
   Color get xffC0C8CD => const Color(0xFFC0C8CD);
-
   Color get xff898989 => const Color(0xff898989);
   Color get xff474747 => const Color(0xff474747);
   Color get xff1E1E1E => const Color(0xff1E1E1E);
@@ -22,6 +21,9 @@ extension ColorExtension on Color {
   Color get xff47b540 => const Color(0xff47b540);
   Color get xff649676 => const Color(0xff649676);
   Color get xff67864a => const Color(0xff67864a);
+  Color get xff091a6b => const Color(0xff0726b9);
+
+
 
   Color get xff070707 => const Color(0xff070707);
   Color get xff34B233 => const Color(0xff34B233);

@@ -1,13 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:unsplash_img/app/constants/colors.dart';
 import '../../../constants/index.dart';
 import '../../../model/index.dart';
 import '../../../reusable/index.dart';
 import '../controllers/home_controller.dart';
-import 'widget/card_view.dart';
 
 class ImageDetails extends GetView<HomeController> {
   const ImageDetails({Key? key}) : super(key: key);
@@ -16,16 +15,72 @@ class ImageDetails extends GetView<HomeController> {
   Widget build(BuildContext context) {
     Hit data = Get.arguments;
     return Scaffold(
-      backgroundColor: appColors.xffececee,
-      appBar: appBarView(),
-      body: CardView(
-        imageUrl:
-        data.largeImageUrl ?? emptyString,
-        likeCount: "",
-        totalView: "",
-        title: "",
-      ),
-    );
+        backgroundColor: appColors.xffececee,
+        appBar: appBarView(),
+        body: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: Get.height * 0.04),
+                child: FadeInLeft(
+                  child: networkImage(
+                    data.largeImageUrl ?? emptyString,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: FadeInUp(
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(50),
+              topRight: Radius.circular(50),
+            ),
+            child: Container(
+              color: appColors.xff67864a,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: Get.height * 0.025, horizontal: Get.width * 0.1),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    FadeInUp(
+                      child: Text(
+                        capitalTag(data.tags),
+                        textAlign: TextAlign.center,
+                        style: prozaLibreText.get20.w700.xffFFFFFF,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          rowData(
+                              title: data.likes.toString(),
+                              icon: AssetStrings.likeIcn),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Get.width * 0.06),
+                            child: rowData(
+                                title: data.comments.toString(),
+                                icon: AssetStrings.comment),
+                          ),
+                          rowData(
+                              title: data.views.toString(),
+                              icon: AssetStrings.view),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 
 //==============================================================================
@@ -62,6 +117,26 @@ class ImageDetails extends GetView<HomeController> {
             Iconsax.shopping_cart,
             size: 27,
             color: rcolor,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row rowData({required String title, required String icon}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SvgPicture.asset(icon,
+            color: appColors.xffFFFFFF, height: Get.height * 0.03),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, top: 2),
+          child: FadeInDown(
+            child: Text(
+              title,
+              style: prozaLibreText.get18.w700.xffFFFFFF.height01,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ),
       ],

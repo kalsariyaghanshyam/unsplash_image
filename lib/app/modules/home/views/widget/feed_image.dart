@@ -7,6 +7,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 import 'package:unsplash_img/app/constants/index.dart';
+import '../../../../reusable/index.dart';
 import '../../../../routes/app_pages.dart';
 import '../../controllers/home_controller.dart';
 import 'card_view.dart';
@@ -29,27 +30,12 @@ class FeedImageCart extends StatelessWidget {
             staggeredTileBuilder: (int index) =>
                 const StaggeredTile.count(1, 1.6),
             crossAxisCount: 2,
-            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.08),
+            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
             itemCount: controller.imgDataResponse.value.hits?.length,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 15,
             itemBuilder: (BuildContext context, int index) {
               var data = controller.imgDataResponse.value.hits?[index];
-
-              String tagInput = data?.tags ?? emptyString;
-              List<String> words = tagInput.split(', ');
-
-              List<String> capitalizedWords = words.map((word) {
-                String trimmedWord = word.trim();
-                if (trimmedWord.isNotEmpty) {
-                  return trimmedWord[0].toUpperCase() +
-                      trimmedWord.substring(1).toLowerCase();
-                } else {
-                  return '';
-                }
-              }).toList();
-
-              String tagValue = capitalizedWords.join(', ');
 
               if (index % 2 == 0) {
                 if (index == 0) {
@@ -60,7 +46,7 @@ class FeedImageCart extends StatelessWidget {
                       children: <Widget>[
                         Transform.translate(
                           offset: const Offset(0.0, 100.0),
-                          child: cardTile(data, tagValue),
+                          child: cardTile(data, capitalTag(data?.tags)),
                         ),
                         Transform.translate(
                           offset: const Offset(0.0, -100.0),
@@ -76,14 +62,14 @@ class FeedImageCart extends StatelessWidget {
                 return FadeInUp(
                   duration: const Duration(seconds: 1),
                   child: Transform.translate(
-                    offset: const Offset(0.0, 110.0),
-                    child: cardTile(data, tagValue),
+                    offset: const Offset(0.0, 100.0),
+                    child: cardTile(data, capitalTag(data?.tags)),
                   ),
                 );
               } else {
                 return FadeInDown(
                   duration: const Duration(seconds: 1),
-                  child: cardTile(data, tagValue),
+                  child: cardTile(data, capitalTag(data?.tags)),
                 );
               }
             },
@@ -108,7 +94,7 @@ class FeedImageCart extends StatelessWidget {
             title: tagValue,
             isLike: data?.isLiked.value ?? false,
             onTap: () {
-              Get.toNamed(Routes.IMAGE_DETAILS,arguments: data);
+              Get.toNamed(Routes.IMAGE_DETAILS, arguments: data);
             },
             likeOnTap: () {
               HapticFeedback.heavyImpact();

@@ -7,6 +7,9 @@ class AppString {
   static String found = "Found";
   static String results = "Results";
 
+  static String imageType = "Image Type";
+  static String category = "Category";
+
 }
 
 

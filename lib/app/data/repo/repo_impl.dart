@@ -1,4 +1,5 @@
 import '../../model/image_response_model.dart';
+import '../../model/index.dart';
 import '../index.dart';
 
 class RepoImpl extends Repository {
@@ -8,7 +9,7 @@ class RepoImpl extends Repository {
 
 //============================= Api =====================================
   @override
-  Future<ImageResponseModel> getImageData({required int page}) {
-    return _dataProvider.getImageData(page: page);
+  Future<ImageResponseModel> getImageData({required FilterArg filterData}) {
+    return _dataProvider.getImageData(filterData: filterData);
   }
 }

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:unsplash_img/app/constants/constants.dart';
 
 import '../../../model/image_response_model.dart';
+import '../../../model/index.dart';
 
 class DataProvider {
   DataProvider();
@@ -24,9 +25,10 @@ class DataProvider {
 
 //========================= Get image Api =======================================
 
-  Future<ImageResponseModel> getImageData({required int page}) async {
+  Future<ImageResponseModel> getImageData(
+      {required FilterArg filterData}) async {
     String url =
-        "${AppConstant.baseUrl}/?key=43665918-2c127bfecf71bdcf83faa86cc&page=$page&per_page=50";
+        "${AppConstant.baseUrl}/?key=43665918-2c127bfecf71bdcf83faa86cc&page=${filterData.page}&per_page=50&category=${filterData.category}&image_type=${filterData.imageType}&orientation=${filterData.orientation}&order=${filterData.order}";
     var response = await http.get(
       Uri.parse(url),
     );
