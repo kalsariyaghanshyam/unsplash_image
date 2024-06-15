@@ -16,9 +16,11 @@ class HomeController extends GetxController {
   final TextEditingController searchController = TextEditingController();
   FocusNode focus = FocusNode();
   Rx<ImageResponseModel> imgDataResponse = ImageResponseModel().obs;
+  var filteredHits = <Hit>[].obs;
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final Debounce debounce = Debounce(const Duration(milliseconds: 500));
 
   List<FilterList> drawerItem = [
     FilterList(title: 'Image Type', filterChild: [
@@ -53,6 +55,7 @@ class HomeController extends GetxController {
     OrientationData(img: AssetStrings.horizontal, title: 'horizontal'),
     OrientationData(img: AssetStrings.vertical, title: 'vertical'),
   ].obs;
+
 //==============================================================================
 // ** GetX Life cycle  **
 //==============================================================================
@@ -69,6 +72,9 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
+    searchController.dispose();
+    focus.dispose();
+    debounce.dispose();
     super.onClose();
   }
 
@@ -81,6 +87,16 @@ class HomeController extends GetxController {
     getImageData(page: 1);
     isLoading(false);
   }
+
+  void searchData(String query) {
+    filteredHits.value = RxList<Hit>.from(imgDataResponse.value.hits
+            ?.where((hit) =>
+                hit.tags != null &&
+                hit.tags!.toLowerCase().contains(query.toLowerCase()))
+            .toList() ??
+        []);
+  }
+
   Future<void> getImageData(
       {required int page,
       String? category,
@@ -96,8 +112,9 @@ class HomeController extends GetxController {
             orientation: orientation),
       );
       imgDataResponse.value = response;
+      filteredHits.value = imgDataResponse.value.hits ?? [];
       isLoading(false);
-      appPrint(imgDataResponse.value.toJson());
+
     } catch (e) {
       appPrint(e);
     } finally {

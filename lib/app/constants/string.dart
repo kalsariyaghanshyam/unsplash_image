@@ -9,6 +9,7 @@ class AppString {
 
   static String imageType = "Image Type";
   static String category = "Category";
+  static String resultNoFound = "Result not found!";
 
 }
 

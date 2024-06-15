@@ -48,6 +48,7 @@ extension TextStypeExtension on TextStyle {
   TextStyle get get17 => size(17);
 
   TextStyle get get18 => size(18);
+  TextStyle get get19 => size(19);
 
   TextStyle get get20 => size(20);
 

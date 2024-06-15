@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../constants/index.dart';
 
-networkImage(String img,{double? height,BoxFit? fit}) {
+networkImage(String img, {double? height, BoxFit? fit}) {
   return CachedNetworkImage(
     placeholder: (context, url) =>
         const Center(child: CupertinoActivityIndicator()),
@@ -17,7 +19,7 @@ networkImage(String img,{double? height,BoxFit? fit}) {
   );
 }
 
-String capitalTag(tag){
+String capitalTag(tag) {
   String tagInput = tag ?? emptyString;
   List<String> words = tagInput.split(', ');
 
@@ -34,4 +36,22 @@ String capitalTag(tag){
   String tagValue = capitalizedWords.join(', ');
 
   return tagValue;
+}
+
+class Debounce {
+  Duration delay;
+  Timer? timer;
+
+  Debounce(
+      this.delay,
+      );
+
+  call(void Function() callback) {
+    timer?.cancel();
+    timer = Timer(delay, callback);
+  }
+
+  dispose() {
+    timer?.cancel();
+  }
 }

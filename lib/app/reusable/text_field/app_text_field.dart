@@ -9,17 +9,20 @@ class AppTextField extends StatelessWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final void Function()? suffixOnTap;
+  final void Function(String) onChange;
 
   const AppTextField(
       {super.key,
       this.placeholder,
       this.controller,
       this.focusNode,
+        required this.onChange,
       this.suffixOnTap});
 
   @override
   Widget build(BuildContext context) {
     return CupertinoTextField(
+
       cursorColor: appColors.xff67864a,
       prefix: const Padding(
         padding: EdgeInsets.only(left: 15),
@@ -45,7 +48,7 @@ class AppTextField extends StatelessWidget {
       style: latoText.get16.space02.w500.textColor(appColors.xff000000),
       decoration: const BoxDecoration(),
       maxLines: 1,
-      onChanged: (String value) {},
+      onChanged: onChange,
       maxLengthEnforcement: MaxLengthEnforcement.enforced,
       maxLength: 50,
       padding: const EdgeInsets.all(16.0),

@@ -33,9 +33,7 @@ class HomeView extends GetView<HomeController> {
                 expandedHeight: 100.0,
                 floating: false,
                 pinned: false,
-                actions: const [
-                  SizedBox.shrink()
-                ],
+                actions: const [SizedBox.shrink()],
                 flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.pin,
                     stretchModes: const <StretchMode>[
@@ -58,12 +56,22 @@ class HomeView extends GetView<HomeController> {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: AppTextField(
+                              onChange: (value) {
+                                controller.debounce(() {
+                                  String trimValue =
+                                      controller.searchController.text.trim();
+                                  controller.searchData(trimValue);
+                                });
+                              },
                               controller: controller.searchController,
                               focusNode: controller.focus,
                               placeholder: "Search image",
                               suffixOnTap: () {
                                 controller.focus.unfocus();
                                 controller.searchController.clear();
+                                if (controller.searchController.text.isEmpty) {
+                                  controller.searchData("");
+                                }
                               },
                             ),
                           ),
@@ -109,7 +117,6 @@ class HomeView extends GetView<HomeController> {
       actions: <Widget>[
         GestureDetector(
           onTap: () {
-            appPrint("Hello");
             controller.scaffoldKey.currentState!.openEndDrawer();
           },
           child: Padding(
