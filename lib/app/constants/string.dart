@@ -1,7 +1,7 @@
 const String emptyString = "";
 
 class AppString {
-  static String appName = "UnSplash Image";
+  static String appName = "Imagixy";
   static String skip = "Skip";
   static String letsStart = "Let's start";
   static String found = "Found";

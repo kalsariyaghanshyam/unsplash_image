@@ -8,23 +8,30 @@ environment:
 dependencies: 
   cupertino_icons: ^1.0.2
 
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.1.2
   lottie: ^3.1.2
-  animate_do: ^3.3.4
+  animate_do: ^5.1.0
   cached_network_image: ^3.3.1
   staggered_grid_view_flutter: ^0.0.4
   morpheme_cached_network_image: any
   pull_to_refresh: ^2.0.0
   iconsax: ^0.0.8
   http: any
+  dio: ^5.4.1
   flutter_svg: ^2.0.10+1
 
-  get: 4.6.6
+  get: ^4.7.3
   flutter: 
     sdk: flutter
+  get_storage: ^2.1.1
+  async_wallpaper: ^2.1.0
+  gal: ^2.3.2
+  path_provider: ^2.1.5
+  permission_handler: ^12.0.1
+  share_plus: any
 
 dev_dependencies: 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
   flutter_test: 
     sdk: flutter
 

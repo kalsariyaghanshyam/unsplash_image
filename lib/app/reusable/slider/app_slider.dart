@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../constants/index.dart';
 
 class AppSlider extends StatelessWidget {
-  final CarouselController carouselController;
+  final CarouselSliderController carouselController;
   final dynamic Function(int, CarouselPageChangedReason) onPageChanged;
   final List<Widget> items;
   final int currentIndex;

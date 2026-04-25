@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 import 'package:unsplash_img/app/reusable/app_button/app_button.dart';
 import '../../../../constants/index.dart';
 import '../../../../routes/app_pages.dart';
+import '../../controllers/onboarding_controller.dart';
+
 
 class BottomNavigationButton extends StatelessWidget {
   final int current;
-  final CarouselController carouselController;
+  final CarouselSliderController carouselController;
   final AnimationController controller;
 
   const BottomNavigationButton({
@@ -43,7 +45,7 @@ class BottomNavigationButton extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: Get.width * 0.18),
                   child: AppButton(text: AppString.letsStart, onTap: () {
-                    Get.offAndToNamed(Routes.HOME);
+                    Get.find<OnboardingController>().completeOnboarding();
                       }),
                 ),
               ),

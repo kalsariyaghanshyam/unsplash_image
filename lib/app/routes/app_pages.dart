@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
@@ -13,7 +14,11 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ONBOARDING;
+  static final storage = GetStorage();
+  static String get INITIAL {
+    bool isFirstTime = storage.read('isFirstTime') ?? true;
+    return isFirstTime ? Routes.ONBOARDING : Routes.HOME;
+  }
 
   static final routes = [
     GetPage(

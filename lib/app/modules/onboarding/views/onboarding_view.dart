@@ -47,7 +47,7 @@ class _OnboardingViewState extends State<OnboardingView>
             actions: <Widget>[
               TextButton(
                 onPressed: () {
-                  Get.offAndToNamed(Routes.HOME);
+                  controller.completeOnboarding();
                 },
                 child: Text(
                   AppString.skip,

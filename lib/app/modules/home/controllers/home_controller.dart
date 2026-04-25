@@ -1,5 +1,11 @@
+import 'dart:io';
+import 'package:async_wallpaper/async_wallpaper.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:gal/gal.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../constants/index.dart';
@@ -82,10 +88,69 @@ class HomeController extends GetxController {
 // ** Helper Function **
 //==============================================================================
 
-  refreshData() {
-    isLoading(true);
-    getImageData(page: 1);
-    isLoading(false);
+  Future<void> downloadImage(String url) async {
+    try {
+      Get.dialog(const Center(child: CircularProgressIndicator()), barrierDismissible: false);
+      final hasAccess = await Gal.hasAccess();
+      if (!hasAccess) {
+        await Gal.requestAccess();
+      }
+      
+      final tempDir = await getTemporaryDirectory();
+      final path = '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.jpg';
+      await Dio().download(url, path);
+      await Gal.putImage(path);
+      
+      Get.back(); // close dialog
+      Get.snackbar('Success', 'Image downloaded successfully!', 
+          snackPosition: SnackPosition.BOTTOM, 
+          backgroundColor: Colors.green.withOpacity(0.8),
+          colorText: Colors.white);
+    } catch (e) {
+      Get.back(); // close dialog
+      Get.snackbar('Error', 'Failed to download image', 
+          snackPosition: SnackPosition.BOTTOM, 
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white);
+      appPrint(e);
+    }
+  }
+
+  Future<void> setWallpaper(String url) async {
+    try {
+      Get.dialog(const Center(child: CircularProgressIndicator()), barrierDismissible: false);
+      
+      // Set to both home and lock screen
+      bool result = await AsyncWallpaper.setWallpaper(
+        url: url,
+        wallpaperLocation: AsyncWallpaper.BOTH_SCREENS,
+        goToHome: false,
+      );
+
+      Get.back(); // close dialog
+      if (result) {
+        Get.snackbar('Success', 'Wallpaper set successfully!', 
+            snackPosition: SnackPosition.BOTTOM, 
+            backgroundColor: Colors.green.withOpacity(0.8),
+            colorText: Colors.white);
+      } else {
+        Get.snackbar('Error', 'Failed to set wallpaper', 
+            snackPosition: SnackPosition.BOTTOM, 
+            backgroundColor: Colors.red.withOpacity(0.8),
+            colorText: Colors.white);
+      }
+    } on PlatformException catch (e) {
+      Get.back(); // close dialog
+      Get.snackbar('Error', 'Failed to set wallpaper', 
+          snackPosition: SnackPosition.BOTTOM, 
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: Colors.white);
+      appPrint(e);
+    }
+  }
+
+  Future<void> refreshData() async {
+    await getImageData(page: 1);
   }
 
   void searchData(String query) {
@@ -113,11 +178,10 @@ class HomeController extends GetxController {
       );
       imgDataResponse.value = response;
       filteredHits.value = imgDataResponse.value.hits ?? [];
-      isLoading(false);
-
     } catch (e) {
       appPrint(e);
     } finally {
+      isLoading(false);
       refreshController.refreshCompleted();
     }
   }
